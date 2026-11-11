@@ -1,0 +1,173 @@
+
+/* CONFIGURAÇÕES GERAIS */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #F5EFE6;
+    color: #3E3028;
+    line-height: 1.6;
+}
+
+
+/* CABEÇALHO */
+
+header {
+    background-color: #6B422E;
+    color: white;
+    padding: 20px 8%;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    color: white;
+    text-decoration: none;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+    gap: 25px;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+}
+
+nav a:hover {
+    color: #E8D8C3;
+}
+
+
+/* SEÇÕES */
+
+section {
+    padding: 50px 8%;
+}
+
+h1, h2 {
+    color: #6B422E;
+    margin-bottom: 20px;
+}
+
+h1 {
+    font-size: 36px;
+}
+
+section p {
+    margin-bottom: 20px;
+}
+
+
+/* BOTÕES E LINKS DE AÇÃO */
+
+button, #home > a {
+    background-color: #68785B;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+button:hover, #home > a:hover {
+    background-color: #526047;
+}
+
+
+/* CAMPOS DE FORMULÁRIO E BUSCA */
+
+input, select, textarea {
+    width: 100%;
+    padding: 12px;
+    margin: 8px 0 15px;
+    border: 1px solid #A67C52;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+label {
+    font-weight: bold;
+}
+
+textarea {
+    min-height: 120px;
+    resize: vertical;
+}
+
+
+/* ÁREAS DOS LIVROS */
+
+#lista-livros, #livros-destaque {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 25px;
+    margin-top: 25px;
+}
+
+
+/* RODAPÉ */
+
+footer {
+    background-color: #6B422E;
+    color: white;
+    text-align: center;
+    padding: 30px 8%;
+}
+
+
+/* RESPONSIVIDADE */
+
+@media (max-width: 768px) {
+
+    header {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    nav ul {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 15px;
+    }
+
+    h1 {
+        font-size: 28px;
+    }
+
+    section {
+        padding: 35px 5%;
+    }
+}
+
+@media (max-width: 576px) {
+
+    .logo {
+        font-size: 21px;
+    }
+
+    nav ul {
+        gap: 10px;
+        font-size: 14px;
+    }
+
+    h1 {
+        font-size: 25px;
+    }
+
+    #lista-livros, #livros-destaque {
+        grid-template-columns: 1fr;
+    }
+}

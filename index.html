@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Cantinho do Livro: um lugar especial para encontrar sua próxima leitura.">
+    <title>Cantinho do Livro</title>
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <!-- CABEÇALHO -->
+    <header>
+        <a href="#home" class="logo">Cantinho do Livro</a>
+
+        <nav id="site-nav">
+            <ul>
+                <li><a href="#home">Início</a></li>
+                <li><a href="#catalogo">Catálogo</a></li>
+                <li><a href="#sobre">Sobre</a></li>
+                <li><a href="#contato">Contato</a></li>
+                <li>
+                    <a href="#carrinho">
+                        Carrinho (<span id="contador-carrinho">0</span>)
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+
+    <!-- CONTEÚDO PRINCIPAL -->
+    <main>
+
+        <!-- HOME -->
+        <section id="home">
+            <h1>Encontre sua próxima história</h1>
+
+            <p>
+                Um cantinho especial para quem acredita
+                que cada livro guarda um novo mundo.
+            </p>
+
+            <a href="#catalogo">Explorar livros</a>
+
+            <h2>Livros em destaque</h2>
+
+            <div id="livros-destaque">
+                <!-- Os livros serão inseridos pelo JavaScript -->
+            </div>
+        </section>
+
+
+        <!-- CATÁLOGO -->
+        <section id="catalogo">
+            <h2>Nosso catálogo</h2>
+
+            <div>
+                <label for="busca">Buscar livro:</label>
+                <input
+                    type="text"
+                    id="busca"
+                    placeholder="Digite o título ou autor..."
+                >
+            </div>
+
+            <div>
+                <label for="filtro-categoria">Categoria:</label>
+                <select id="filtro-categoria">
+                    <option value="todas">Todas as categorias</option>
+                    <option value="Romance">Romance</option>
+                    <option value="Fantasia">Fantasia</option>
+                    <option value="Técnicos">Técnicos</option>
+                    <option value="Infantil">Infantil</option>
+                </select>
+            </div>
+
+            <div id="lista-livros">
+                <!-- Os cards dos livros serão gerados pelo JavaScript -->
+            </div>
+        </section>
+
+
+        <!-- DETALHES DO LIVRO -->
+        <section id="detalhes">
+            <h2>Detalhes do livro</h2>
+
+            <div id="detalhes-livro">
+                <!-- As informações do livro selecionado serão inseridas pelo JavaScript -->
+            </div>
+
+            <a href="#catalogo">Voltar ao catálogo</a>
+        </section>
+
+
+        <!-- CARRINHO -->
+        <section id="carrinho">
+            <h2>Meu carrinho</h2>
+
+            <div id="lista-carrinho">
+                <!-- Os produtos adicionados serão exibidos aqui -->
+            </div>
+
+            <p>
+                Total: R$ <span id="valor-total">0,00</span>
+            </p>
+        </section>
+
+
+        <!-- SOBRE E CONTATO -->
+        <section id="sobre">
+            <h2>Sobre nós</h2>
+
+            <p>
+                O Cantinho do Livro nasceu do amor pela leitura.
+                Nosso objetivo é aproximar pessoas de histórias,
+                conhecimentos e novas experiências.
+            </p>
+        </section>
+
+        <section id="contato">
+            <h2>Entre em contato</h2>
+
+            <form id="form-contato">
+
+                <div>
+                    <label for="nome">Nome:</label>
+                    <input type="text" id="nome" name="nome" required>
+                </div>
+
+                <div>
+                    <label for="email">E-mail:</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+
+                <div>
+                    <label for="assunto">Assunto:</label>
+                    <input type="text" id="assunto" name="assunto" required>
+                </div>
+
+                <div>
+                    <label for="mensagem">Mensagem:</label>
+                    <textarea id="mensagem" name="mensagem" required></textarea>
+                </div>
+
+                <button type="submit">Enviar mensagem</button>
+
+                <p id="mensagem-formulario"></p>
+
+            </form>
+        </section>
+
+    </main>
+
+
+    <!-- RODAPÉ -->
+    <footer>
+        <p>Cantinho do Livro</p>
+        <p>São Paulo - SP</p>
+        <p>Instagram | Facebook</p>
+        <p>&copy; 2026 Cantinho do Livro. Todos os direitos reservados.</p>
+    </footer>
+
+
+    <!-- ARQUIVOS JAVASCRIPT -->
+    <script src="js/livros.js" defer></script>
+    <script src="js/carrinho.js" defer></script>
+    <script src="js/script.js" defer></script>
+
+</body>
+</html>
