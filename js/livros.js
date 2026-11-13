@@ -1,7 +1,7 @@
 
-// ARRAY DE LIVROS DA LIVRARIA
+// LISTA LOCAL DE LIVROS (reserva usada se a Google Books API falhar)
 
-const livros = [
+let livros = [
     {
         id: 1,
         titulo: "O Pequeno Príncipe",

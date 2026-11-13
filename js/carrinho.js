@@ -1,5 +1,10 @@
 let carrinho = JSON.parse(localStorage.getItem("carrinho")) || [];
 
+// ids de carrinhos salvos antes da API eram números
+carrinho.forEach(function(item) {
+    item.id = String(item.id);
+});
+
 const listaCarrinho = document.getElementById("lista-carrinho");
 const valorTotal = document.getElementById("valor-total");
 const contadorCarrinho = document.getElementById("contador-carrinho");
@@ -140,7 +145,7 @@ listaCarrinho.addEventListener("click", function(event) {
         return;
     }
 
-    const idLivro = Number(botao.dataset.id);
+    const idLivro = botao.dataset.id;
     const acao = botao.dataset.acao;
 
     if (acao === "remover") {

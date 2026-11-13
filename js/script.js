@@ -74,10 +74,7 @@ function capaArte(livro) {
     return "data:image/svg+xml;charset=utf-8," + encodeURIComponent(svg);
 }
 
-// A capa de cada livro passa a ser a arte gerada acima
-livros.forEach(function(livro) {
-    livro.capa = capaArte(livro);
-});
+// As capas ilustradas (capaArte) são aplicadas na função iniciar(), no final do arquivo
 
 
 // ============================================================
@@ -93,7 +90,6 @@ const bannerMes = document.getElementById("banner-mes");
 const campoBusca = document.getElementById("busca");
 const filtroCategoria = document.getElementById("filtro-categoria");
 
-const idsDestaque = [1, 2, 4, 8];
 
 
 // ============================================================
@@ -108,7 +104,7 @@ function criarCard(livro) {
     return `
         <article class="livro-card">
 
-            <img src="${livro.capa}" alt="Capa do livro ${livro.titulo}, de ${livro.autor}">
+            <img src="${livro.capa}" data-livro="${livro.id}" alt="Capa do livro ${livro.titulo}, de ${livro.autor}">
 
             <h3>${livro.titulo}</h3>
 
@@ -144,11 +140,36 @@ function renderizarLivros(listaLivros = livros) {
 
 function renderizarDestaques() {
 
-    livros.filter(function(livro) {
-        return idsDestaque.includes(livro.id);
-    }).forEach(function(livro) {
-        destaque.innerHTML += criarCard(livro);
+    destaque.innerHTML = "";
+
+    // um livro de cada categoria
+    Object.keys(CATEGORIAS_API).forEach(function(categoria) {
+
+        const livro = livros.find(function(item) {
+            return item.categoria === categoria;
+        });
+
+        if (livro) {
+            destaque.innerHTML += criarCard(livro);
+        }
+
     });
+
+}
+
+function preencherBanner() {
+
+    const livroDoMes = livros.find(function(item) {
+        return item.categoria === "Fantasia";
+    }) || livros[0];
+
+    document.getElementById("titulo-banner").textContent = "Livro do mês: " + livroDoMes.titulo;
+    document.getElementById("texto-banner").textContent =
+        "De " + livroDoMes.autor + ". Uma boa companhia para a sua próxima xícara de café.";
+
+    const botaoBanner = document.getElementById("botao-banner");
+    botaoBanner.dataset.detalhe = livroDoMes.id;
+    botaoBanner.hidden = false;
 
 }
 
@@ -159,7 +180,7 @@ function mostrarDetalhes(idLivro) {
     });
 
     detalhesLivro.innerHTML = `
-        <img src="${livro.capa}" alt="Capa ampliada do livro ${livro.titulo}, de ${livro.autor}">
+        <img src="${livro.capa}" data-livro="${livro.id}" alt="Capa ampliada do livro ${livro.titulo}, de ${livro.autor}">
 
         <div class="detalhes-info">
             <h3>${livro.titulo}</h3>
@@ -251,11 +272,11 @@ function tratarCliqueLivro(event) {
 
     if (botao.dataset.detalhe) {
 
-        mostrarDetalhes(Number(botao.dataset.detalhe));
+        mostrarDetalhes(botao.dataset.detalhe);
 
     } else if (botao.dataset.id) {
 
-        adicionarAoCarrinho(Number(botao.dataset.id));
+        adicionarAoCarrinho(botao.dataset.id);
         avisarAdicionado(botao);
 
     }
@@ -264,6 +285,30 @@ function tratarCliqueLivro(event) {
 
 [catalogo, destaque, detalhesLivro, bannerMes].forEach(function(area) {
     area.addEventListener("click", tratarCliqueLivro);
+});
+
+// Se a capa da API não carregar, troca pela capa ilustrada
+function usarCapaDeReserva(event) {
+
+    const imagem = event.target;
+
+    if (imagem.tagName !== "IMG" || !imagem.dataset.livro || imagem.dataset.reserva) {
+        return;
+    }
+
+    const livro = livros.find(function(item) {
+        return item.id === imagem.dataset.livro;
+    });
+
+    if (livro) {
+        imagem.dataset.reserva = "sim";
+        imagem.src = capaArte(livro);
+    }
+
+}
+
+[catalogo, destaque, detalhesLivro].forEach(function(area) {
+    area.addEventListener("error", usarCapaDeReserva, true);
 });
 
 // POPUP DE DETALHES: fecha no botão, no fundo escuro, no link "Voltar" e com Esc
@@ -476,5 +521,36 @@ formContato.addEventListener("submit", function(event) {
 // EXECUTA AS FUNÇÕES INICIAIS
 // ============================================================
 
-renderizarLivros();
-renderizarDestaques();
+async function iniciar() {
+
+    catalogo.innerHTML = '<p class="vazio">Buscando livros...</p>';
+
+    const livrosDaApi = await buscarLivrosGoogle();
+
+    if (livrosDaApi.length >= 12) {
+
+        livros = livrosDaApi;
+
+        livros.forEach(function(livro) {
+            if (!livro.capa) {
+                livro.capa = capaArte(livro);
+            }
+        });
+
+    } else {
+
+        // API indisponível: usa a lista local (livros.js)
+        livros.forEach(function(livro) {
+            livro.id = String(livro.id);
+            livro.capa = capaArte(livro);
+        });
+
+    }
+
+    renderizarLivros();
+    renderizarDestaques();
+    preencherBanner();
+
+}
+
+iniciar();
