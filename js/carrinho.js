@@ -1,6 +1,5 @@
 let carrinho = JSON.parse(localStorage.getItem("carrinho")) || [];
 
-// ids de carrinhos salvos antes da API eram números
 carrinho.forEach(function(item) {
     item.id = String(item.id);
 });

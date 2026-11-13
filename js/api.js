@@ -3,8 +3,6 @@
 // usado no site (o mesmo do livros.js, que fica como reserva)
 // ============================================================
 
-// Cole aqui a sua chave de API (Google Cloud > APIs e serviços > Credenciais).
-// Se ficar com este texto, a busca funciona sem chave (com cota menor).
 const CHAVE_API = "AIzaSyAClt3rLtoP8WvCDiUS-7C2_iLCnDEyYts";
 
 // true: a cada recarga a página de resultados é sorteada e os livros mudam
